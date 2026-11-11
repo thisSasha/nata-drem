@@ -1,0 +1,26 @@
+---
+import Byn from "../../Byn.astro";
+const { length, price } = Astro.props;
+---
+
+<div class="flex items-center gap-1 text-lg">
+    <span>{length} см</span>
+    <span
+        class="flex-1 border-t-4 translate-y-px border-dotted border-primary mx-3 opacity-40"
+    >
+    </span>
+    <span
+        class="flex"
+        style="
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+    line-height: 1;
+"
+    >
+        {price}
+        <div class="pb-0.5 pr-px">
+            <Byn />
+        </div>
+    </span>
+</div>

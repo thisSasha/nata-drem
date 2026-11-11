@@ -1,0 +1,86 @@
+<section id="about" class="about mt-12">
+    <div class="container py-4 space-y-2 md:space-y-3 text-lg md:text-base">
+        <div class="about__group flex gap-8 flex-col md:flex-row-reverse items-center">
+            <div
+                class="about__avatar rounded-full mx-auto object-cover aspect-square w-1/2 md:w-40 border-4 border-accent overflow-hidden shrink-0"
+            >
+                <img
+                    class="about__avatar-img w-full h-full object-cover"
+                    style="transform: scale(1.5)"
+                    src="/avatar.png"
+                    alt="Ната Дрем"
+                />
+            </div>
+            <p>
+                Добро пожаловать, добрый человек. Я Ната Дрем и я стригу уже 9
+                лет. Чем я могу быть полезной? Помогаю подобрать стрижку исходя
+                из формы лица, типа волоса и того, как вы носите стрижку в
+                обычной жизни
+            </p>
+        </div>
+        <div class="about__group">
+            <div class="divider -mb-0.5! md:mb-0!">* * *</div>
+            <p>
+                Не люблю категоричность. Хочется челку? Не вопрос! Хочется
+                бахнуть каре - я только за! Растим длину? О’кей, убираем 1 см и
+                ни миллиметром больше
+            </p>
+        </div>
+        <div class="about__group">
+            <div class="divider -mb-0.5!">* * *</div>
+            <p>
+                Еще делаю прически и укладки. Но не верьте на слово - приходите и
+                убедитесь сами! Welcome
+            </p>
+        </div>
+    </div>
+
+    <script>
+        import gsap from "gsap";
+        import ScrollTrigger from "gsap/ScrollTrigger";
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const groups = gsap.utils.toArray<HTMLElement>(".about__group");
+        const avatar = document.querySelector<HTMLElement>(".about__avatar-img");
+
+        gsap.set(groups, { opacity: 0 });
+        if (avatar) gsap.set(avatar, { scale: 1.5 });
+
+        const init = () => {
+            groups.forEach((group) => {
+                gsap.to(group, {
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power1.out",
+                    scrollTrigger: {
+                        trigger: group,
+                        start: "top 60%",
+                        once: true,
+                    },
+                });
+            });
+
+            if (avatar) {
+                gsap.to(avatar, {
+                    scale: 1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: avatar,
+                        start: "top 60%",
+                        end: "top 10%",
+                        scrub: true,
+                    },
+                });
+            }
+
+            ScrollTrigger.refresh();
+        };
+
+        if (document.documentElement.classList.contains("is-ready")) {
+            init();
+        } else {
+            document.addEventListener("app:ready", init, { once: true });
+        }
+    </script>
+</section>
